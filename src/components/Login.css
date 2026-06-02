@@ -8,7 +8,7 @@
   width: 100vw;
   min-height: 100vh;
   padding: 24px;
-  background-image: url('/assets/images/login-bg.png');
+  background-image: url('../assets/images/login-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

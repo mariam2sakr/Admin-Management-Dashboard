@@ -9,7 +9,7 @@ import Support from '../Pages/Support';
 import Settings from '../Pages/Settings';
 import './DashboardLayout.css';
 import { Menu, Bell, Search, Sun, Moon } from 'lucide-react';
-import adminDefault from '/assets/images/admin.webp';
+import adminDefault from '../assets/images/admin.webp';
 
 export default function DashboardLayout({ children, onLogout }) {
   const [sidebarOpen, setSidebarOpen] = useState(() => {

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { DollarSign, Users, ShoppingBag, Percent,  TrendingUp,  TrendingDown,  Download,  ArrowUpRight, Activity } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import './Dashboard.css';
-import avatar2 from '/assets/images/avatar2.png';
-import avatar3 from '/assets/images/avatar3.png';
-import avatar4 from '/assets/images/avatar4.png';
-import avatar6 from '/assets/images/avatar6.png';
+import avatar2 from '../assets/images/avatar2.png';
+import avatar3 from '../assets/images/avatar3.png';
+import avatar4 from '../assets/images/avatar4.png';
+import avatar6 from '../assets/images/avatar6.png';
 
 // Mock Data
 const revenueData = [

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
-import logo from '/assets/images/logo.png';
+import logo from '../assets/images/logo.png';
 import {  LayoutDashboard,  BarChart3,  Users,  Settings,  HelpCircle,  LogOut,  X,  ChevronLeft,  ChevronRight,  Package,  ShoppingCart,  Sun,  Moon } from 'lucide-react';
 
 export default function Sidebar({ isOpen, setIsOpen, activeTab, setActiveTab, theme, toggleTheme, onLogout, profileAvatar, profileName }) {

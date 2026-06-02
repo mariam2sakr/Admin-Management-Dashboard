@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight, ShieldAlert } from 'lucide-react';
 import './Login.css';
-import logo from '/assets/images/logo.png';
+import logo from '../assets/images/logo.png';
 
 export default function Login({ onLoginSuccess }) {
   const [isSignUp, setIsSignUp] = useState(false);
