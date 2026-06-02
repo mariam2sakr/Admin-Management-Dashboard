@@ -66,22 +66,31 @@ const INITIAL_USERS = [
 
 export default function Users() {
   // Load users from localStorage, fallback to initial mock data
-const USERS_VERSION = 'v2'; // غيّر الرقم كل ما تغير البيانات
 
-const [users, setUsers] = useState(() => {
-  const savedVersion = localStorage.getItem('dashboard_users_version');
-  const saved = localStorage.getItem('dashboard_users');
+  const [users, setUsers] = useState(() => {
+    const saved = localStorage.getItem('dashboard_users');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Validate every avatar URL: must be a current imported preset,
+        // OR a user-uploaded blob/data URL.
+        // Stale hashed paths (old build / different host) won't be in AVATAR_PRESETS.
+        const isValid = parsed.every(u =>
+          AVATAR_PRESETS.includes(u.avatar) ||
+          u.avatar?.startsWith('blob:') ||
+          u.avatar?.startsWith('data:')
+        );
+        if (isValid) return parsed;
+      } catch {}
+      // Stale / corrupt data → clear and fall back to seed data
+      localStorage.removeItem('dashboard_users');
+    }
+    return INITIAL_USERS;
+  });
 
-  if (saved && savedVersion === USERS_VERSION) {
-    return JSON.parse(saved);
-  }
-  return INITIAL_USERS;
-});
-
-useEffect(() => {
-  localStorage.setItem('dashboard_users', JSON.stringify(users));
-  localStorage.setItem('dashboard_users_version', USERS_VERSION);
-}, [users]);
+  useEffect(() => {
+    localStorage.setItem('dashboard_users', JSON.stringify(users));
+  }, [users]);
 
   // Filters State
   const [searchTerm, setSearchTerm] = useState('');

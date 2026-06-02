@@ -45,7 +45,23 @@ export default function Products() {
   /* ── State ── */
   const [products, setProducts] = useState(() => {
     const saved = localStorage.getItem('dashboard_products');
-    return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Validate every image URL: must match a current imported asset,
+        // OR be a user-uploaded blob/data URL.
+        // Stale paths (from a different build or host) won't be in PRODUCT_IMAGES.
+        const isValid = parsed.every(p =>
+          PRODUCT_IMAGES.includes(p.image) ||
+          p.image?.startsWith('blob:') ||
+          p.image?.startsWith('data:')
+        );
+        if (isValid) return parsed;
+      } catch {}
+      // Stale / corrupt data → clear and fall back to seed data
+      localStorage.removeItem('dashboard_products');
+    }
+    return INITIAL_PRODUCTS;
   });
 
   useEffect(() => {

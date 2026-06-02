@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ShoppingBag, Search, Eye, Trash2, X, Clock, CheckCircle, AlertTriangle, AlertCircle, TrendingUp, DollarSign, ArrowUpRight, ShieldCheck, Truck, User, MapPin, Phone, Mail, Calendar, CreditCard, FileText, ChevronRight} from 'lucide-react';
 import './Orders.css';
 import avatar1 from '../assets/images/avatar1.png';
@@ -155,22 +155,16 @@ const INITIAL_ORDERS = [
 ];
 
 export default function Orders() {
-  const ORDERS_VERSION = 'v2'; // غير الرقم كل ما تغير البيانات
 
-const [orders, setOrders] = useState(() => {
-  const savedVersion = localStorage.getItem('dashboard_orders_version');
-  const saved = localStorage.getItem('dashboard_orders');
-  
-  if (saved && savedVersion === ORDERS_VERSION) {
-    return JSON.parse(saved);
-  }
-  return INITIAL_ORDERS; // يرجع للجديد تلقائي
-});
-
-useEffect(() => {
-  localStorage.setItem('dashboard_orders', JSON.stringify(orders));
-  localStorage.setItem('dashboard_orders_version', ORDERS_VERSION);
-}, [orders]);
+  // Orders are static seed data — always loaded fresh so images
+  // (which use Vite-hashed paths) are always correct, regardless of
+  // which environment (localhost vs GitHub Pages) the user visited last.
+  const [orders, setOrders] = useState(() => {
+    // Clean up any stale localStorage keys from older builds
+    localStorage.removeItem('dashboard_orders');
+    localStorage.removeItem('dashboard_orders_version');
+    return INITIAL_ORDERS;
+  });
 
   // Filters State
   const [searchTerm, setSearchTerm] = useState('');
